@@ -1,0 +1,35 @@
+{% extends 'router/base.html' %}
+{% block content %}
+<br>
+    <h2>History URL's Shortened by ShortLi till date :</h2><hr>
+    {% for url in urls %}
+            <table class="table table-dark" border="2px">  
+            <div class="media-body">
+                <td class="table-success"><h5>Shortened Link: <a class="mr-2" target="_blank" href="http://{{ request.get_host }}/{{ url.key }}">http://{{ request.get_host }}/{{ url.key }}</a></h5>
+                </td><div>
+                <td class="table-danger"><h5>Original Link: <a class="mr-2" target="_blank" href="{{ url.original_url }}">{{ url.original_url }}</a></h5>
+                </td></div>
+            </div>
+            </table>
+       
+    {% endfor %}
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">&laquo; First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a href="?page={{ num }}" class="btn btn-info mb-4">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    {% endif %}
+{% endblock content %}
