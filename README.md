@@ -24,3 +24,4 @@ A Customize URL Shortener, Made with Django, Python, HTML, CSS to shorten any UR
 
 - Adding Login/Register System
 - Adding Analytics Dashboard
+- Adding refferal's & UTM Based Tracking
